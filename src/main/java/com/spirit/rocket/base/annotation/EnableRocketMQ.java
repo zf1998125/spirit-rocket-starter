@@ -1,6 +1,6 @@
 package com.spirit.rocket.base.annotation;
 
-import com.hetan.rocket.base.config.RocketAutoConfiguration;
+import com.spirit.rocket.base.config.RocketAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
