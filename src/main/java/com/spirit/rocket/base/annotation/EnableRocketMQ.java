@@ -1,8 +1,5 @@
 package com.spirit.rocket.base.annotation;
 
-import com.spirit.rocket.base.config.RocketAutoConfiguration;
-import org.springframework.context.annotation.Import;
-
 import java.lang.annotation.*;
 
 /**
@@ -15,7 +12,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@Import({RocketAutoConfiguration.class})
 public @interface EnableRocketMQ {
 
 }

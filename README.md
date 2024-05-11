@@ -1,7 +1,7 @@
-# sinzetech-starter-rocket
+# spirit-starter-rocket
 
 阿里云RocketMQ SDK
-Starter，使用方法与类的方式收发消息。[示例代码仓库](https://gitee.com/zztech2020/sinzetech-rocket-example)
+Starter，使用方法与类的方式收发消息。[示例代码仓库](https://gitee.com/zztech2020/spirit-rocket-example)
 
 # 一、快速启动
 
@@ -10,8 +10,8 @@ Starter，使用方法与类的方式收发消息。[示例代码仓库](https:/
 ```xml
 <!--在pom.xml中添加依赖-->
 <dependency>
-    <groupId>com.spirit</groupId>
-    <artifactId>spirit-rocket-starter</artifactId>
+  <groupId>com.spirit</groupId>
+  <artifactId>spirit-rocket-starter</artifactId>
 </dependency>
 ```
 
@@ -34,9 +34,9 @@ rocket:
 @SpringBootApplication
 public class SpiritRocketExampleApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SpiritRocketExampleApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(SpiritRocketExampleApplication.class, args);
+  }
 
 }
 ```
@@ -84,40 +84,40 @@ import com.spirit.rocket.aliyun.support.producer.enums.MessageSendType;
 @Component
 public class SendCommonExampleServer {
 
-    /**
-     * 发送同步消息，需要标注{@link CommonMessage#messageSendType()}字段，
-     * 该字段默认使用异步方法，需要手动指定为同步发送，同步发送的类型为{@link MessageSendType#SEND}
-     *
-     * @return {@link String}
-     */
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND)
-    public String sendSyncMessage() {
-        return "发送同步消息";
-    }
+  /**
+   * 发送同步消息，需要标注{@link CommonMessage#messageSendType()}字段，
+   * 该字段默认使用异步方法，需要手动指定为同步发送，同步发送的类型为{@link MessageSendType#SEND}
+   *
+   * @return {@link String}
+   */
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND)
+  public String sendSyncMessage() {
+    return "发送同步消息";
+  }
 
-    /**
-     * 发送异步消息，需要标注{@link CommonMessage#messageSendType()}字段，
-     * 该字段默认使用异步方法，异步发送的类型为{@link MessageSendType#SEND_ASYNC},
-     * 可使用{@link CommonMessage#callback()}字段指定消息回调类，消息回调类需要先实例化成bean才能被使用，
-     * 默认使用{@link DefaultSendCallback}消息回调
-     *
-     * @return {@link String}
-     */
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND_ASYNC, callback = DefaultSendCallback.class)
-    public String sendAsyncMessage() {
-        return "发送异步消息";
-    }
+  /**
+   * 发送异步消息，需要标注{@link CommonMessage#messageSendType()}字段，
+   * 该字段默认使用异步方法，异步发送的类型为{@link MessageSendType#SEND_ASYNC},
+   * 可使用{@link CommonMessage#callback()}字段指定消息回调类，消息回调类需要先实例化成bean才能被使用，
+   * 默认使用{@link DefaultSendCallback}消息回调
+   *
+   * @return {@link String}
+   */
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND_ASYNC, callback = DefaultSendCallback.class)
+  public String sendAsyncMessage() {
+    return "发送异步消息";
+  }
 
-    /**
-     * 发送单向消息，需要标注{@link CommonMessage#messageSendType()}字段，
-     * 将该字段指定成{@link MessageSendType#SEND_ONE_WAY}
-     *
-     * @return {@link String}
-     */
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND_ONE_WAY)
-    public String sendOneWayMessage() {
-        return "发送单向消息";
-    }
+  /**
+   * 发送单向消息，需要标注{@link CommonMessage#messageSendType()}字段，
+   * 将该字段指定成{@link MessageSendType#SEND_ONE_WAY}
+   *
+   * @return {@link String}
+   */
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND_ONE_WAY)
+  public String sendOneWayMessage() {
+    return "发送单向消息";
+  }
 
 }
 ```
@@ -144,15 +144,15 @@ public class SendCommonExampleServer {
 @Component
 public class SendOrderExampleServer {
 
-    /**
-     * 发送顺序消息，顺序消息需要指定注解{@link OrderMessage}，可自定义sharding key
-     *
-     * @return {@link String}
-     */
-    @OrderMessage(topic = "exampleTopic", tag = "exampleTag", shardingKey = "shardingKey")
-    public String sendOrderMessage() {
-        return "发送有序消息";
-    }
+  /**
+   * 发送顺序消息，顺序消息需要指定注解{@link OrderMessage}，可自定义sharding key
+   *
+   * @return {@link String}
+   */
+  @OrderMessage(topic = "exampleTopic", tag = "exampleTag", shardingKey = "shardingKey")
+  public String sendOrderMessage() {
+    return "发送有序消息";
+  }
 
 }
 ```
@@ -184,19 +184,19 @@ import com.spirit.rocket.base.annotation.send.RocketMessageSend;
 @Component
 public class SendTransactionExampleServer {
 
-    /**
-     * 发送事务消息,使用注解{@link TransactionMessage},注意，事务消息的{@link RocketMessageSend#groupID()}应与普通消息不同。
-     * 可指定{@link TransactionMessage#checker()}服务器回查本地事务器，与{@link TransactionMessage#executer()}本地事务执行器，
-     * 本地事务执行器默认指定为提交操作的执行器，需要真实业务调用时重写，回查本地事务默认使用的事提交本地事务操作，
-     * 有其他同名的{@link DefaultLocalRollbackTransactionChecker}与{@link DefaultLocalUnknowTransactionChecker}分别默认执行回滚与未知操作，
-     * 需要服务自定义
-     *
-     * @return {@link String}
-     */
-    @TransactionMessage(topic = "exampleTopic", tag = "exampleTag", checker = DefaultLocalCommitTransactionChecker.class, executer = DefaultLocalTransactionExecuter.class)
-    public String sendTransactionMessage() {
-        return "发送事务消息";
-    }
+  /**
+   * 发送事务消息,使用注解{@link TransactionMessage},注意，事务消息的{@link RocketMessageSend#groupID()}应与普通消息不同。
+   * 可指定{@link TransactionMessage#checker()}服务器回查本地事务器，与{@link TransactionMessage#executer()}本地事务执行器，
+   * 本地事务执行器默认指定为提交操作的执行器，需要真实业务调用时重写，回查本地事务默认使用的事提交本地事务操作，
+   * 有其他同名的{@link DefaultLocalRollbackTransactionChecker}与{@link DefaultLocalUnknowTransactionChecker}分别默认执行回滚与未知操作，
+   * 需要服务自定义
+   *
+   * @return {@link String}
+   */
+  @TransactionMessage(topic = "exampleTopic", tag = "exampleTag", checker = DefaultLocalCommitTransactionChecker.class, executer = DefaultLocalTransactionExecuter.class)
+  public String sendTransactionMessage() {
+    return "发送事务消息";
+  }
 
 }
 ```
@@ -227,31 +227,31 @@ import com.spirit.rocket.base.annotation.other.DeliverTime;
 @Component
 public class SendDeliverMessageExampleServer {
 
-    /**
-     * 发送延时指定毫秒数的消息，需要在方法入参中指定{@link DeliverTime}注解，
-     * 并在注解中指定{@link DeliverTime#timeStampModel()}为false（已默认指定），
-     * 强制使用Long类型，否则会转换失败，指定时间为毫秒。
-     * 添加注解的消息，将在指定时间后发送（由RocketMQ实现）
-     *
-     * @param deliverTime 延时时间
-     * @return {@link String}
-     */
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
-    public String sendDeliverTimeMessage(@DeliverTime Long deliverTime) {
-        return "发送延时消息";
-    }
+  /**
+   * 发送延时指定毫秒数的消息，需要在方法入参中指定{@link DeliverTime}注解，
+   * 并在注解中指定{@link DeliverTime#timeStampModel()}为false（已默认指定），
+   * 强制使用Long类型，否则会转换失败，指定时间为毫秒。
+   * 添加注解的消息，将在指定时间后发送（由RocketMQ实现）
+   *
+   * @param deliverTime 延时时间
+   * @return {@link String}
+   */
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
+  public String sendDeliverTimeMessage(@DeliverTime Long deliverTime) {
+    return "发送延时消息";
+  }
 
-    /**
-     * 发送指定时间的消息，传入的字段应为时间转换为毫秒戳，此功能需要手动开启，开启的注解字段为
-     * {@link DeliverTime#timeStampModel()}为{@link Boolean#TRUE}
-     *
-     * @param timeStamp 时间戳
-     * @return {@link String}
-     */
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
-    public String sendTimeStampMessage(@DeliverTime(timeStampModel = true) Long timeStamp) {
-        return "发送定时消息";
-    }
+  /**
+   * 发送指定时间的消息，传入的字段应为时间转换为毫秒戳，此功能需要手动开启，开启的注解字段为
+   * {@link DeliverTime#timeStampModel()}为{@link Boolean#TRUE}
+   *
+   * @param timeStamp 时间戳
+   * @return {@link String}
+   */
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
+  public String sendTimeStampMessage(@DeliverTime(timeStampModel = true) Long timeStamp) {
+    return "发送定时消息";
+  }
 
 }
 ```
@@ -276,54 +276,54 @@ import java.awt.*;
 @Component
 public class SendTypeExampleServer {
 
-    private final AtomicInteger sendStringCount = new AtomicInteger();
+  private final AtomicInteger sendStringCount = new AtomicInteger();
 
-    private final AtomicInteger sendByteCount = new AtomicInteger();
+  private final AtomicInteger sendByteCount = new AtomicInteger();
 
-    private final AtomicInteger sentObjectCount = new AtomicInteger();
+  private final AtomicInteger sentObjectCount = new AtomicInteger();
 
-    /**
-     * 发送String类型消息，String类型也会视为普通对象类型，会经过FastJson转换
-     *
-     * @return {@link String}
-     */
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
-    public String sendStringCommonMessage() {
-        return String.format("发送%s消息至RocketMQ,第%s次发送,发送的类型%s", "普通", sendStringCount.incrementAndGet(), String.class.getSimpleName());
-    }
+  /**
+   * 发送String类型消息，String类型也会视为普通对象类型，会经过FastJson转换
+   *
+   * @return {@link String}
+   */
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
+  public String sendStringCommonMessage() {
+    return String.format("发送%s消息至RocketMQ,第%s次发送,发送的类型%s", "普通", sendStringCount.incrementAndGet(), String.class.getSimpleName());
+  }
 
-    /**
-     * 发送字节类型消息
-     *
-     * @return {@link byte[]}
-     */
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
-    public byte[] sendByteCommonMessage() {
-        return String.format("发送%s消息至RocketMQ,第%s次发送,发送的类型%s", "普通字节", sendByteCount.incrementAndGet(), byte[].class.getSimpleName()).getBytes(StandardCharsets.UTF_8);
-    }
+  /**
+   * 发送字节类型消息
+   *
+   * @return {@link byte[]}
+   */
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
+  public byte[] sendByteCommonMessage() {
+    return String.format("发送%s消息至RocketMQ,第%s次发送,发送的类型%s", "普通字节", sendByteCount.incrementAndGet(), byte[].class.getSimpleName()).getBytes(StandardCharsets.UTF_8);
+  }
 
-    /**
-     * 发送对象类型消息
-     *
-     * @return {@link ExampleObject}
-     */
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
-    public ExampleObject sendObjectCommonMessage() {
-        return ExampleObject.builder().name("小明").age(18).saying(String.format("Java 是世界上最好的语言，重要的事情要说%s遍", sentObjectCount.incrementAndGet()))
-                .linkObject(ExampleObject.builder().name("小红").age(99).saying("汇编才是最好用的语言，虽然掉头发~").build())
-                .build();
-    }
+  /**
+   * 发送对象类型消息
+   *
+   * @return {@link ExampleObject}
+   */
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
+  public ExampleObject sendObjectCommonMessage() {
+    return ExampleObject.builder().name("小明").age(18).saying(String.format("Java 是世界上最好的语言，重要的事情要说%s遍", sentObjectCount.incrementAndGet()))
+            .linkObject(ExampleObject.builder().name("小红").age(99).saying("汇编才是最好用的语言，虽然掉头发~").build())
+            .build();
+  }
 
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ExampleObject {
-        private String name;
-        private Integer age;
-        private String saying;
-        private ExampleObject linkObject;
-    }
+  @Data
+  @Builder
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class ExampleObject {
+    private String name;
+    private Integer age;
+    private String saying;
+    private ExampleObject linkObject;
+  }
 
 }
 ```
@@ -355,15 +355,15 @@ import com.spirit.rocket.aliyun.annotation.send.CommonMessage;
  **/
 @Component
 public class ExpandSendCallback implements SendCallback {
-    @Override
-    public void onSuccess(SendResult sendResult) {
-        System.out.println("异步消息发送成功，发送结果为：" + sendResult);
-    }
+  @Override
+  public void onSuccess(SendResult sendResult) {
+    System.out.println("异步消息发送成功，发送结果为：" + sendResult);
+  }
 
-    @Override
-    public void onException(OnExceptionContext context) {
-        System.out.println("异步消息发送失败，失败信息为：" + context);
-    }
+  @Override
+  public void onException(OnExceptionContext context) {
+    System.out.println("异步消息发送失败，失败信息为：" + context);
+  }
 }
 ```
 
@@ -380,15 +380,15 @@ public class ExpandSendCallback implements SendCallback {
 @Component
 public class ExpandAsyncCommonMessageSend {
 
-    /**
-     * 自定义回调接口
-     *
-     * @return {@link String}
-     */
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND_ASYNC, callback = ExpandSendCallback.class)
-    public String sendAsyncMessage() {
-        return "发送异步消息";
-    }
+  /**
+   * 自定义回调接口
+   *
+   * @return {@link String}
+   */
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND_ASYNC, callback = ExpandSendCallback.class)
+  public String sendAsyncMessage() {
+    return "发送异步消息";
+  }
 
 }
 ```
@@ -409,17 +409,17 @@ import com.aliyun.openservices.ons.api.transaction.TransactionStatus;
 @Component
 public class ExpandLocalTransactionChecker implements LocalTransactionChecker {
 
-    /**
-     * 回查本地事务，由Broker调用Producer执行
-     *
-     * @param msg 味精
-     * @return {@link TransactionStatus}
-     */
-    @Override
-    public TransactionStatus check(Message msg) {
-        // 自定义操作内容与事务状态
-        return TransactionStatus.RollbackTransaction;
-    }
+  /**
+   * 回查本地事务，由Broker调用Producer执行
+   *
+   * @param msg 味精
+   * @return {@link TransactionStatus}
+   */
+  @Override
+  public TransactionStatus check(Message msg) {
+    // 自定义操作内容与事务状态
+    return TransactionStatus.RollbackTransaction;
+  }
 }
 ```
 
@@ -436,15 +436,15 @@ public class ExpandLocalTransactionChecker implements LocalTransactionChecker {
 @Component
 public class ExpandTransactionCheckerMessageSend {
 
-    /**
-     * 发送事务消息,指定回查器{@link ExpandLocalTransactionChecker}
-     *
-     * @return {@link String}
-     */
-    @TransactionMessage(topic = "exampleTopic", tag = "exampleTag", checker = ExpandLocalTransactionChecker.class)
-    public String sendTransactionCheckerMessage() {
-        return "发送事务消息";
-    }
+  /**
+   * 发送事务消息,指定回查器{@link ExpandLocalTransactionChecker}
+   *
+   * @return {@link String}
+   */
+  @TransactionMessage(topic = "exampleTopic", tag = "exampleTag", checker = ExpandLocalTransactionChecker.class)
+  public String sendTransactionCheckerMessage() {
+    return "发送事务消息";
+  }
 }
 ```
 
@@ -462,18 +462,18 @@ public class ExpandTransactionCheckerMessageSend {
 @Component
 public class ExpandLocalTransactionExecuter implements LocalTransactionExecuter {
 
-    /**
-     * 执行事务
-     *
-     * @param msg 味精
-     * @param arg 由发送时传入的自定义参数，此部分可以通过ThreadLocal进行传递{@link RocketThreadLocalUtil#add(Object...)}
-     * @return {@link TransactionStatus}
-     */
-    @Override
-    public TransactionStatus execute(Message msg, Object arg) {
-        // 执行事务操作 并返回事务结果
-        return TransactionStatus.CommitTransaction;
-    }
+  /**
+   * 执行事务
+   *
+   * @param msg 味精
+   * @param arg 由发送时传入的自定义参数，此部分可以通过ThreadLocal进行传递{@link RocketThreadLocalUtil#add(Object...)}
+   * @return {@link TransactionStatus}
+   */
+  @Override
+  public TransactionStatus execute(Message msg, Object arg) {
+    // 执行事务操作 并返回事务结果
+    return TransactionStatus.CommitTransaction;
+  }
 }
 ```
 
@@ -492,18 +492,18 @@ import com.spirit.rocket.base.utils.RocketThreadLocalUtil;
 @Component
 public class ExpandTransactionExecuterMessageSend {
 
-    /**
-     * 发送事务消息,指定事务执行器{@link ExpandLocalTransactionExecuter},
-     * 指定事务执行器时可以传入自定义参数，事务执行器接收使用，传入的方法为{@link RocketThreadLocalUtil#add(Object...)}
-     *
-     * @return {@link String}
-     */
-    @TransactionMessage(topic = "exampleTopic", tag = "exampleTag", executer = ExpandLocalTransactionExecuter.class)
-    public String sendTransactionCheckerMessage() {
-        // 指定传入的参数
-        RocketThreadLocalUtil.add(new Object(), new Object());
-        return "发送事务消息";
-    }
+  /**
+   * 发送事务消息,指定事务执行器{@link ExpandLocalTransactionExecuter},
+   * 指定事务执行器时可以传入自定义参数，事务执行器接收使用，传入的方法为{@link RocketThreadLocalUtil#add(Object...)}
+   *
+   * @return {@link String}
+   */
+  @TransactionMessage(topic = "exampleTopic", tag = "exampleTag", executer = ExpandLocalTransactionExecuter.class)
+  public String sendTransactionCheckerMessage() {
+    // 指定传入的参数
+    RocketThreadLocalUtil.add(new Object(), new Object());
+    return "发送事务消息";
+  }
 }
 ```
 
@@ -512,14 +512,14 @@ public class ExpandTransactionExecuterMessageSend {
 订阅消息支持两种订阅方式，三种消费模式，均基于注解+接口组合实现。
 
 - 消息消费模式：
-    - 普通消费方式
-    - 消息批量消费
-    - 消息顺序消费
+  - 普通消费方式
+  - 消息批量消费
+  - 消息顺序消费
 - 消息订阅方式：
-    - 集群订阅：同一个Group ID所标识的所有Consumer平均分摊消费消息。 例如某个Topic有9条消息，一个Group
-      ID有3个Consumer实例，那么在集群消费模式下每个实例平均分摊，只消费其中的3条消息。
-    - 广播订阅：同一个Group ID所标识的所有Consumer都会各自消费某条消息一次。 例如某个Topic有9条消息，一个Group
-      ID有3个Consumer实例，那么在广播消费模式下每个实例都会各自消费9条消息。
+  - 集群订阅：同一个Group ID所标识的所有Consumer平均分摊消费消息。 例如某个Topic有9条消息，一个Group
+    ID有3个Consumer实例，那么在集群消费模式下每个实例平均分摊，只消费其中的3条消息。
+  - 广播订阅：同一个Group ID所标识的所有Consumer都会各自消费某条消息一次。 例如某个Topic有9条消息，一个Group
+    ID有3个Consumer实例，那么在广播消费模式下每个实例都会各自消费9条消息。
 
 ## （1）消费模式：
 
@@ -549,18 +549,18 @@ import com.spirit.rocket.base.state.MessageModelState;
 @Component
 public class CommonMessageListener implements AliyunCommonConsumerListener<String> {
 
-    /**
-     * 消费消息并返回结果
-     *
-     * @param message 消息
-     * @param args    该参数为阿里云SDK保留参数，默认第一位为{@link ConsumeContext}类型参数，如不使用，忽略即可
-     * @return {@link Action}
-     */
-    @Override
-    public Action onMessage(String message, Object... args) {
-        // 消费消息
-        return Action.CommitMessage;
-    }
+  /**
+   * 消费消息并返回结果
+   *
+   * @param message 消息
+   * @param args    该参数为阿里云SDK保留参数，默认第一位为{@link ConsumeContext}类型参数，如不使用，忽略即可
+   * @return {@link Action}
+   */
+  @Override
+  public Action onMessage(String message, Object... args) {
+    // 消费消息
+    return Action.CommitMessage;
+  }
 }
 ```
 
@@ -591,18 +591,18 @@ import javax.swing.*;
 @Component
 public class BatchMessageListener implements AliyunBatchConsumerListener<String> {
 
-    /**
-     * 消息批量消费
-     *
-     * @param message 消息
-     * @param args    arg游戏
-     * @return {@link Action}
-     */
-    @Override
-    public Action onBatchMessage(List<String> message, Object... args) {
-        // 消费消息并回传消费结果
-        return Action.CommitMessage;
-    }
+  /**
+   * 消息批量消费
+   *
+   * @param message 消息
+   * @param args    arg游戏
+   * @return {@link Action}
+   */
+  @Override
+  public Action onBatchMessage(List<String> message, Object... args) {
+    // 消费消息并回传消费结果
+    return Action.CommitMessage;
+  }
 }
 ```
 
@@ -628,18 +628,18 @@ import com.spirit.rocket.base.annotation.listener.RocketMessageListener;
 @Component
 public class OrderMessageListener implements AliyunOrderConsumerListener<String> {
 
-    /**
-     * 消费消息
-     *
-     * @param message 消息
-     * @param args    arg游戏
-     * @return {@link OrderAction}
-     */
-    @Override
-    public OrderAction onMessage(String message, Object... args) {
-        // 消费消息 并返回当前队列的消费结果
-        return OrderAction.Success;
-    }
+  /**
+   * 消费消息
+   *
+   * @param message 消息
+   * @param args    arg游戏
+   * @return {@link OrderAction}
+   */
+  @Override
+  public OrderAction onMessage(String message, Object... args) {
+    // 消费消息 并返回当前队列的消费结果
+    return OrderAction.Success;
+  }
 }
 ```
 
@@ -687,11 +687,11 @@ public class OrderMessageListener implements AliyunOrderConsumerListener<String>
 @RocketMessageListener(groupID = "exampleGroup", topic = "exampleTopic", tag = "exampleTag", messageType = String.class)
 @Component
 public class ObjectTypeMessageListener implements AliyunCommonConsumerListener<String> {
-    @Override
-    public Action onMessage(String message, Object... args) {
-        // 接收到的将会是反序列化回来的string类型的message消息主体
-        return Action.CommitMessage;
-    }
+  @Override
+  public Action onMessage(String message, Object... args) {
+    // 接收到的将会是反序列化回来的string类型的message消息主体
+    return Action.CommitMessage;
+  }
 }
 ```
 
@@ -707,11 +707,11 @@ public class ObjectTypeMessageListener implements AliyunCommonConsumerListener<S
 @RocketMessageListener(groupID = "exampleGroup", topic = "exampleTopic", tag = "exampleTag", messageType = byte[].class)
 @Component
 public class ByteArrayTypeMessageListener implements AliyunCommonConsumerListener<byte[]> {
-    @Override
-    public Action onMessage(byte[] message, Object... args) {
-        // 接收到的将会是RocketMQ原生的字节数组，会被拆箱，但不会被转换
-        return Action.CommitMessage;
-    }
+  @Override
+  public Action onMessage(byte[] message, Object... args) {
+    // 接收到的将会是RocketMQ原生的字节数组，会被拆箱，但不会被转换
+    return Action.CommitMessage;
+  }
 }
 ```
 
@@ -729,11 +729,11 @@ import com.aliyun.openservices.ons.api.Message;
 @RocketMessageListener(groupID = "exampleGroup", topic = "exampleTopic", tag = "exampleTag", messageType = Message.class)
 @Component
 public class MessageTypeMessageListener implements AliyunCommonConsumerListener<Message> {
-    @Override
-    public Action onMessage(Message message, Object... args) {
-        // 接收到的将会是RocketMQ原生的message类型数据，不会拆箱
-        return Action.CommitMessage;
-    }
+  @Override
+  public Action onMessage(Message message, Object... args) {
+    // 接收到的将会是RocketMQ原生的message类型数据，不会拆箱
+    return Action.CommitMessage;
+  }
 }
 ```
 
@@ -759,7 +759,7 @@ public class MessageTypeMessageListener implements AliyunCommonConsumerListener<
 
 ```yaml
 # 注解中的外部配置
-sinzetech:
+spirit:
   rocket:
     example:
       expand-group: expandGroup
@@ -788,27 +788,27 @@ import com.spirit.rocket.base.annotation.send.RocketMessageSend;
  * @author 张帆
  * @date 2021/08/21 19:10
  **/
-@RocketMessageSend(groupID = "exampleGroup", exGroupID = "${sinzetech.rocket.example.expand-group}")
+@RocketMessageSend(groupID = "exampleGroup", exGroupID = "${spirit.rocket.example.expand-group}")
 @Component
 public class ConfigSendAnnotation {
 
-    @CommonMessage(topic = "exampleTopic", exTopic = "${sinzetech.rocket.example.expand-topic}",
-            tag = "exampleTag", exTag = "${sinzetech.rocket.example.expand-tag}")
-    public String sendCommonMessage() {
-        return "发送常用消息";
-    }
+  @CommonMessage(topic = "exampleTopic", exTopic = "${spirit.rocket.example.expand-topic}",
+          tag = "exampleTag", exTag = "${spirit.rocket.example.expand-tag}")
+  public String sendCommonMessage() {
+    return "发送常用消息";
+  }
 
-    @TransactionMessage(topic = "exampleTopic", exTopic = "${sinzetech.rocket.example.expand-topic}",
-            tag = "exampleTag", exTag = "${sinzetech.rocket.example.expand-tag}")
-    public String sendTransactionMessage() {
-        return "事务消息";
-    }
+  @TransactionMessage(topic = "exampleTopic", exTopic = "${spirit.rocket.example.expand-topic}",
+          tag = "exampleTag", exTag = "${spirit.rocket.example.expand-tag}")
+  public String sendTransactionMessage() {
+    return "事务消息";
+  }
 
-    @OrderMessage(topic = "exampleTopic", exTopic = "${sinzetech.rocket.example.expand-topic}",
-            tag = "exampleTag", exTag = "${sinzetech.rocket.example.expand-tag}")
-    public String sendOrderMessage() {
-        return "发送有序消息";
-    }
+  @OrderMessage(topic = "exampleTopic", exTopic = "${spirit.rocket.example.expand-topic}",
+          tag = "exampleTag", exTag = "${spirit.rocket.example.expand-tag}")
+  public String sendOrderMessage() {
+    return "发送有序消息";
+  }
 }
 ```
 
@@ -824,18 +824,18 @@ public class ConfigSendAnnotation {
  * @date 2021/08/21 19:24
  */
 @RocketMessageListener(
-        groupID = "exampleGroup", exGroupID = "${sinzetech.rocket.example.expand-group}",
-        topic = "exampleTopic", exTopic = "${sinzetech.rocket.example.expand-topic}",
-        tag = "exampleTag", exTag = "${sinzetech.rocket.example.expand-tag}",
+        groupID = "exampleGroup", exGroupID = "${spirit.rocket.example.expand-group}",
+        topic = "exampleTopic", exTopic = "${spirit.rocket.example.expand-topic}",
+        tag = "exampleTag", exTag = "${spirit.rocket.example.expand-tag}",
         messageType = String.class)
 @Component
 public class ConfigListenerAnnotation implements AliyunCommonConsumerListener<String> {
 
-    @Override
-    public Action onMessage(String message, Object... args) {
-        // 消费消息
-        return Action.CommitMessage;
-    }
+  @Override
+  public Action onMessage(String message, Object... args) {
+    // 消费消息
+    return Action.CommitMessage;
+  }
 }
 ```
 
@@ -860,19 +860,19 @@ public class ConfigListenerAnnotation implements AliyunCommonConsumerListener<St
 @Component
 public class ExpandProxyJsonSerializer implements RocketSerializer {
 
-    private final RocketSerializer inner = new DefaultJsonSerializer();
+  private final RocketSerializer inner = new DefaultJsonSerializer();
 
-    @Override
-    public <T> byte[] serialize(T object) {
-        log.info("发生了序列化操作,将转换:{}", object);
-        return inner.serialize(object);
-    }
+  @Override
+  public <T> byte[] serialize(T object) {
+    log.info("发生了序列化操作,将转换:{}", object);
+    return inner.serialize(object);
+  }
 
-    @Override
-    public <T> T deSerialize(byte[] bytes, Class<T> clazz) {
-        log.info("发生了反序列化操作,将转换为:{}类", clazz.getSimpleName());
-        return inner.deSerialize(bytes, clazz);
-    }
+  @Override
+  public <T> T deSerialize(byte[] bytes, Class<T> clazz) {
+    log.info("发生了反序列化操作,将转换为:{}类", clazz.getSimpleName());
+    return inner.deSerialize(bytes, clazz);
+  }
 }
 ```
 
@@ -897,38 +897,38 @@ import com.spirit.rocket.base.serializer.DefaultJsonSerializer;
 @Component
 public class ExpandSerializerSend {
 
-    /**
-     * 会使用此注解中指定的序列化器序列化消息
-     *
-     * @return {@link String}
-     */
-    @MessageSerializer(serializer = DefaultJsonSerializer.class)
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
-    public String sendCommonMessage() {
-        return "发送常用消息";
-    }
+  /**
+   * 会使用此注解中指定的序列化器序列化消息
+   *
+   * @return {@link String}
+   */
+  @MessageSerializer(serializer = DefaultJsonSerializer.class)
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag")
+  public String sendCommonMessage() {
+    return "发送常用消息";
+  }
 
-    /**
-     * 如果仅使用{@link MessageSerializer}注解，但不手动覆写注解中的序列化器，
-     * 将会使用注解中已经生明过的{@link DefaultJsonSerializer}序列化器
-     *
-     * @return {@link String}
-     */
-    @MessageSerializer
-    @TransactionMessage(topic = "exampleTopic", tag = "exampleTag")
-    public String sendTransactionMessage() {
-        return "事务消息";
-    }
+  /**
+   * 如果仅使用{@link MessageSerializer}注解，但不手动覆写注解中的序列化器，
+   * 将会使用注解中已经生明过的{@link DefaultJsonSerializer}序列化器
+   *
+   * @return {@link String}
+   */
+  @MessageSerializer
+  @TransactionMessage(topic = "exampleTopic", tag = "exampleTag")
+  public String sendTransactionMessage() {
+    return "事务消息";
+  }
 
-    /**
-     * 将会使用类上注解指定的{@link ExpandProxyJsonSerializer}序列化消息
-     *
-     * @return {@link String}
-     */
-    @OrderMessage(topic = "exampleTopic", tag = "exampleTag")
-    public String sendOrderMessage() {
-        return "发送有序消息";
-    }
+  /**
+   * 将会使用类上注解指定的{@link ExpandProxyJsonSerializer}序列化消息
+   *
+   * @return {@link String}
+   */
+  @OrderMessage(topic = "exampleTopic", tag = "exampleTag")
+  public String sendOrderMessage() {
+    return "发送有序消息";
+  }
 }
 ```
 
@@ -952,18 +952,18 @@ import javax.swing.*;
 @Component
 public class ExpandSerializerListener implements AliyunCommonConsumerListener<String> {
 
-    /**
-     * 该注解将不会生效
-     *
-     * @param message 消息
-     * @param args    arg游戏
-     * @return {@link Action}
-     */
-    @MessageSerializer(deSerializer = DefaultJsonSerializer.class)
-    @Override
-    public Action onMessage(String message, Object... args) {
-        return Action.CommitMessage;
-    }
+  /**
+   * 该注解将不会生效
+   *
+   * @param message 消息
+   * @param args    arg游戏
+   * @return {@link Action}
+   */
+  @MessageSerializer(deSerializer = DefaultJsonSerializer.class)
+  @Override
+  public Action onMessage(String message, Object... args) {
+    return Action.CommitMessage;
+  }
 }
 ```
 
@@ -977,8 +977,8 @@ public class ExpandSerializerListener implements AliyunCommonConsumerListener<St
 ```xml
 <!--RocketMQ Helper-->
 <dependency>
-    <groupId>com.sinzetech</groupId>
-    <artifactId>sinzetech-starter-rocket-helper</artifactId>
+  <groupId>com.spirit</groupId>
+  <artifactId>spirit-starter-rocket-helper</artifactId>
 </dependency>
 ```
 
@@ -996,7 +996,7 @@ public class ExpandSerializerListener implements AliyunCommonConsumerListener<St
 - `SendHelper.failSave()`标志位代表为发送失败后保存
 - `SendHelper.failNotify()`标志位代表为发送失败后通知企业微信
 - `SendHelper.processor()`为可配置的执行器，可多配置，如自定义陪之后会按照配置的顺讯依次执行配置的执行器。 同时，默认配置为空，
-  配置为空时会走全局的默认配置，全局默认配置位置为com.sinzetech.rocket.base.config.RocketProperties.defaultSendHelper,
+  配置为空时会走全局的默认配置，全局默认配置位置为com.spirit.rocket.base.config.RocketProperties.defaultSendHelper,
   该标志位在引用Rocket
   Helper时会自动配置为Rocket Helper的默认实现，如无必要则无需指定。
 
@@ -1019,36 +1019,36 @@ import com.spirit.rocket.base.helper.send.SendHelper;
 @SendHelper(successSave = true, failSave = true, failNotify = true, processor = {DefaultSendHelperProcessor.class})
 public class SendHelperExampleServer {
 
-    /**
-     * 发送同步消息
-     * {@link SendHelper}方法上注解的优先级大于类上的
-     * @return {@link String}
-     */
-    @SendHelper(successSave = false, failSave = true, failNotify = false, processor = {DefaultSendHelperProcessor.class})
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND)
-    public String sendSyncMessage() {
-        return "发送同步消息";
-    }
+  /**
+   * 发送同步消息
+   * {@link SendHelper}方法上注解的优先级大于类上的
+   * @return {@link String}
+   */
+  @SendHelper(successSave = false, failSave = true, failNotify = false, processor = {DefaultSendHelperProcessor.class})
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND)
+  public String sendSyncMessage() {
+    return "发送同步消息";
+  }
 
-    /**
-     * 发送异步消息，会使用发送类上标记的注解配置
-     *
-     * @return {@link String}
-     */
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND_ASYNC, callback = DefaultSendCallback.class)
-    public String sendAsyncMessage() {
-        return "发送异步消息";
-    }
+  /**
+   * 发送异步消息，会使用发送类上标记的注解配置
+   *
+   * @return {@link String}
+   */
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND_ASYNC, callback = DefaultSendCallback.class)
+  public String sendAsyncMessage() {
+    return "发送异步消息";
+  }
 }
 ```
 
 ### 2）其他
 
-#### 使用默认的实现包`sinzetech-starter-rocket-helper`时
+#### 使用默认的实现包`spirit-starter-rocket-helper`时
 
 -
 
-使用默认的实现包时需要在数据库新增[`base_rocket_send_log`](../sinzetech-starter-rocket-helper/doc/db/base_rocket_send_log.sql)
+使用默认的实现包时需要在数据库新增[`base_rocket_send_log`](../spirit-starter-rocket-helper/doc/db/base_rocket_send_log.sql)
 表。
 
 - 使用该方法时，发送时不出异常则视为发送成功，因此，对异步方法并不友好，使用时谨慎使用。
@@ -1092,30 +1092,30 @@ import javax.swing.*;
 @Component
 public class ListenerHelperMessageListener implements AliyunCommonConsumerListener<String> {
 
-    /**
-     * 消费消息并返回结果
-     *
-     * @param message 消息
-     * @param args    该参数为阿里云SDK保留参数，默认第一位为{@link ConsumeContext}类型参数，如不使用，忽略即可
-     * @return {@link Action}
-     */
-    @Override
-    public Action onMessage(String message, Object... args) {
-        // 消费消息
-        return Action.CommitMessage;
-    }
+  /**
+   * 消费消息并返回结果
+   *
+   * @param message 消息
+   * @param args    该参数为阿里云SDK保留参数，默认第一位为{@link ConsumeContext}类型参数，如不使用，忽略即可
+   * @return {@link Action}
+   */
+  @Override
+  public Action onMessage(String message, Object... args) {
+    // 消费消息
+    return Action.CommitMessage;
+  }
 }
 ```
 
 ### 2）其他
 
-#### 使用默认的实现包`sinzetech-starter-rocket-helper`时
+#### 使用默认的实现包`spirit-starter-rocket-helper`时
 
 - 在仅使用幂等功能的情况时，
-  需要在数据库新增[`base_rocket_idempotent_log`幂等表](../sinzetech-starter-rocket-helper/doc/db/base_rocket_idempotent_log.sql)
+  需要在数据库新增[`base_rocket_idempotent_log`幂等表](../spirit-starter-rocket-helper/doc/db/base_rocket_idempotent_log.sql)
   表。
 - 在仅使用消费消息记录功能的情况时，
-  需要在数据库新增[`base_rocket_listener_log`](../sinzetech-starter-rocket-helper/doc/db/base_rocket_listener_log.sql)表。
+  需要在数据库新增[`base_rocket_listener_log`](../spirit-starter-rocket-helper/doc/db/base_rocket_listener_log.sql)表。
 - 在两种功能都需要使用时，以上两种都需要添加。
 
 ## （3）Message_Key
@@ -1146,42 +1146,42 @@ import com.spirit.rocket.base.utils.RocketThreadLocalUtil;
 @Component
 public class MessageKeyExampleServer {
 
-    /**
-     * 发送同步消息，自动生成MessageKey
-     *
-     * @return {@link String}
-     */
-    @AutoMessageKey
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND)
-    public String sendSyncMessage() {
-        return "发送同步消息";
-    }
+  /**
+   * 发送同步消息，自动生成MessageKey
+   *
+   * @return {@link String}
+   */
+  @AutoMessageKey
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND)
+  public String sendSyncMessage() {
+    return "发送同步消息";
+  }
 
-    /**
-     * 发送异步消息,自定义传入MessageKey，无需维护{@link RocketThreadLocalUtil#clearMessageKey()}，组件会自动维护。
-     *
-     * @return {@link String}
-     */
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND_ASYNC, callback = DefaultSendCallback.class)
-    public String sendAsyncMessage() {
-        RocketThreadLocalUtil.setMessageKey(UUID.randomUUID().toString());
-        return "发送异步消息";
-    }
+  /**
+   * 发送异步消息,自定义传入MessageKey，无需维护{@link RocketThreadLocalUtil#clearMessageKey()}，组件会自动维护。
+   *
+   * @return {@link String}
+   */
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND_ASYNC, callback = DefaultSendCallback.class)
+  public String sendAsyncMessage() {
+    RocketThreadLocalUtil.setMessageKey(UUID.randomUUID().toString());
+    return "发送异步消息";
+  }
 
-    /**
-     * 发送同步消息，自动生成MessageKey，在整秒时覆盖自动生成的MessageKey
-     *
-     * @return {@link String}
-     */
-    @AutoMessageKey
-    @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND)
-    public String sendSyncMessageTwo() {
-        long currentTimeMillis = System.currentTimeMillis();
-        if (currentTimeMillis % 1000 == 0) {
-            RocketThreadLocalUtil.setMessageKey(currentTimeMillis + "-" + UUID.randomUUID().toString());
-        }
-        return "发送同步消息";
+  /**
+   * 发送同步消息，自动生成MessageKey，在整秒时覆盖自动生成的MessageKey
+   *
+   * @return {@link String}
+   */
+  @AutoMessageKey
+  @CommonMessage(topic = "exampleTopic", tag = "exampleTag", messageSendType = MessageSendType.SEND)
+  public String sendSyncMessageTwo() {
+    long currentTimeMillis = System.currentTimeMillis();
+    if (currentTimeMillis % 1000 == 0) {
+      RocketThreadLocalUtil.setMessageKey(currentTimeMillis + "-" + UUID.randomUUID().toString());
     }
+    return "发送同步消息";
+  }
 }
 ```
 
@@ -1207,23 +1207,23 @@ import javax.swing.*;
 @Component
 public class MessageKeyMessageListener implements AliyunCommonConsumerListener<Message> {
 
-    /**
-     * 消费消息
-     *
-     * @param message 消息
-     * @param args    arg游戏
-     * @return {@link Action}
-     */
-    @Override
-    public Action onMessage(Message message, Object... args) {
-        // 原生获取MessageKey
-        String messageKey = message.getKey();
-        // 通过上下文方式获取MessageKey
-        String threadLocalMessageKey = RocketThreadLocalUtil.getMessageKey();
+  /**
+   * 消费消息
+   *
+   * @param message 消息
+   * @param args    arg游戏
+   * @return {@link Action}
+   */
+  @Override
+  public Action onMessage(Message message, Object... args) {
+    // 原生获取MessageKey
+    String messageKey = message.getKey();
+    // 通过上下文方式获取MessageKey
+    String threadLocalMessageKey = RocketThreadLocalUtil.getMessageKey();
 
-        // 消费消息
-        return Action.CommitMessage;
-    }
+    // 消费消息
+    return Action.CommitMessage;
+  }
 }
 
 ```

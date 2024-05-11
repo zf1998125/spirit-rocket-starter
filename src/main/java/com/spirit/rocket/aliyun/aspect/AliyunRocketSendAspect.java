@@ -29,9 +29,9 @@ public class AliyunRocketSendAspect extends RocketSendAspectCore {
     /**
      * 消息切入点
      */
-    @Pointcut("@annotation(com.sinzetech.rocket.aliyun.annotation.send.CommonMessage)||" +
-            "@annotation(com.sinzetech.rocket.aliyun.annotation.send.OrderMessage)||" +
-            "@annotation(com.sinzetech.rocket.aliyun.annotation.send.TransactionMessage)")
+    @Pointcut("@annotation(com.spirit.rocket.aliyun.annotation.send.CommonMessage)||" +
+            "@annotation(com.spirit.rocket.aliyun.annotation.send.OrderMessage)||" +
+            "@annotation(com.spirit.rocket.aliyun.annotation.send.TransactionMessage)")
     public void messagePointcut() {
     }
 
