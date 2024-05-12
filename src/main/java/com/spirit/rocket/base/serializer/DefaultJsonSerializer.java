@@ -6,7 +6,7 @@ import com.spirit.rocket.base.serializer.base.RocketSerializer;
 /**
  * json 序列化器 会跳过空数据的序列化与反序列化 会跳过字节数组的序列化与反序列化 其他都由fastJson进行序列化
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/17 19:01
  **/
 public class DefaultJsonSerializer implements RocketSerializer {

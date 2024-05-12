@@ -16,7 +16,7 @@ import org.springframework.core.env.StandardEnvironment;
 /**
  * 基础的自动配置
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/19 19:03
  */
 @Configuration

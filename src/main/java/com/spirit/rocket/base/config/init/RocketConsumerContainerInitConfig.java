@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 /**
  * 消费者容器初始化配置
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/19 19:15
  */
 @Slf4j

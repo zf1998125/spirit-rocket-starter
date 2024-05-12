@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 抽象支持类
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/16 18:20
  **/
 public abstract class AbstractProducerContainerSupport implements Comparable<AbstractProducerContainerSupport> {

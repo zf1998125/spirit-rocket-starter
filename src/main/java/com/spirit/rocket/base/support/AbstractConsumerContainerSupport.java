@@ -10,7 +10,7 @@ import com.spirit.rocket.base.support.container.AbstractConsumerContainer;
 /**
  * mq容器实现支持者
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/19 00:32
  **/
 public abstract class AbstractConsumerContainerSupport implements Comparable<AbstractConsumerContainerSupport> {

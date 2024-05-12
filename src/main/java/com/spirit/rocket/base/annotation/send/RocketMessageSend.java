@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 /**
  * 消息发送
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/23 10:56
  */
 @Target(ElementType.TYPE)

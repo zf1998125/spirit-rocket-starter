@@ -3,7 +3,7 @@ package com.spirit.rocket.base.core.consumer;
 /**
  * 监听器 结合官方starter与阿里sdk抽象实现 顶层抽象接口 所有的上下文解析最顶层为此
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/19 00:29
  */
 public interface RocketConsumerListener<T, A> {

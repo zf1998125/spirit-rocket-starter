@@ -3,7 +3,7 @@ package com.spirit.rocket.base.error;
 /**
  * rocket mq 异常
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/18 17:43
  **/
 public class RocketAccessException extends RuntimeException {

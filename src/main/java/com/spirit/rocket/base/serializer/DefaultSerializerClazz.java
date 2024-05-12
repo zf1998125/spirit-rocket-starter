@@ -6,7 +6,7 @@ import com.spirit.rocket.base.serializer.base.RocketSerializer;
 /**
  * 默认引用的类
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/19 13:02
  **/
 public interface DefaultSerializerClazz {

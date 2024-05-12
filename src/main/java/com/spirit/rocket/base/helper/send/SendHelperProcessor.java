@@ -6,7 +6,7 @@ import com.spirit.rocket.base.helper.MessageAttributes;
 /**
  * 发送辅助处理器
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/10/09 11:58
  **/
 public interface SendHelperProcessor {

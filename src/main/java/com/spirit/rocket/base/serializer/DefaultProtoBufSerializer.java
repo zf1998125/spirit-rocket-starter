@@ -9,7 +9,7 @@ import io.protostuff.runtime.RuntimeSchema;
 /**
  * 默认的原型buf序列化器
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/23 10:54
  */
 @Deprecated

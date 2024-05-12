@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 批处理消息监听器
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/19 03:47
  **/
 public interface RocketBatchConsumerListener<T, A> extends RocketConsumerListener<T, A> {

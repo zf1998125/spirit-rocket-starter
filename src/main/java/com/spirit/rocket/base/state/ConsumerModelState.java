@@ -3,7 +3,7 @@ package com.spirit.rocket.base.state;
 /**
  * 消费处理类型 暂未使用
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/19 00:20
  **/
 public interface ConsumerModelState {

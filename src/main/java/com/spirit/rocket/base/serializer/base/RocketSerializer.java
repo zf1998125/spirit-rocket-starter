@@ -3,7 +3,7 @@ package com.spirit.rocket.base.serializer.base;
 /**
  * 消息序列化器接口
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/23 10:54
  */
 public interface RocketSerializer {

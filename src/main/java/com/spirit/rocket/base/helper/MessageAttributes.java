@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 消息的附加属性
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/10/11 15:31
  **/
 @Data

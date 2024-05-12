@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * 提供者容器支持器初始化
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/17 10:54
  */
 public class RocketProducerContainerInitConfig implements ApplicationContextAware {

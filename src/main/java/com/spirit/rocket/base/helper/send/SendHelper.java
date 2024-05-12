@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * 发送助手
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/10/09 11:48
  **/
 @Target({ElementType.TYPE, ElementType.METHOD})

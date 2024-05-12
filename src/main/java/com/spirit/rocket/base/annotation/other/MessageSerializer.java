@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 /**
  * 消息序列化器
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/17 14:05
  **/
 @Target({ElementType.TYPE, ElementType.METHOD})

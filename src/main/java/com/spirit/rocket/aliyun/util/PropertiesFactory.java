@@ -8,7 +8,7 @@ import java.util.Properties;
 /**
  * 属性的工厂
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/23 10:56
  */
 public class PropertiesFactory {

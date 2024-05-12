@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 序列化器自动配置
  *
- * @author 赵元昊
+ * @author 张帆
  * @date 2021/08/19 12:03
  **/
 @Configuration
